@@ -611,7 +611,7 @@ function switchVideo(index) {
 // Fullscreen slideshow functionality
 let currentVideoIndex = 0;
 let isSlideshowActive = false;
-const videoSources = ['videos/1.mp4', 'videos/2.mp4', 'videos/3.mp4'];
+const videoSources = ['/videos/1.mp4', '/videos/2.mp4', '/videos/3.mp4'];
 
 function startFullscreenSlideshow() {
     const fullscreenContainer = document.getElementById('fullscreenVideoContainer');
@@ -925,7 +925,7 @@ document.addEventListener('keydown', function(e) {
 // Surprise Box Data
 const surpriseBoxData = {
     'first-date': {
-        image: 'images/our-first-date.jpg',
+        image: '/images/our-first-date.jpg',
         text: 'The day we met still feels like a quiet memory that glows differently in my heart. I didn\'t know then that a random plan would turn into something so meaningful.',
         flashcards: [
             'Your smile that day, I still remember it like the first light after a long night. Maybe that\'s where everything truly began, with a moment that felt both ordinary and unforgettable.',
@@ -934,7 +934,7 @@ const surpriseBoxData = {
         ]
     },
     'adventure': {
-        image: 'images/adventure-together.jpg',
+        image: '/images/adventure-together.jpg',
         text: 'Every adventure with you felt like time paused, like the world allowed us a few days just to breathe and be us.',
         flashcards: [
             'Bir was where it all began- my birthday, the mountains, the wind, the peace in your presence, and you beside me. You made that day more than just another birthday, you made it mine in a way that felt alive and unforgettable. The laughter, the little moments, the way you looked at me mid-journey, it all felt like a dream I never wanted to end.',
@@ -943,7 +943,7 @@ const surpriseBoxData = {
         ]
     },
     'laughing': {
-        image: 'images/laughing-together.jpg',
+        image: '/images/laughing-together.jpg',
         text: 'If there\'s one thing that could silence every worry between us, it was laughter and slight humour. The kind that came out of nowhere- silly, loud, sometimes over the dumbest things like JUST BECAUSE but it always felt real.',
         flashcards: [
             'I still remember how your face changed when you laughed, eyes half closed, that small pause before you caught your breath again. Those moments made everything feel lighter, even when life wasn\'t.',
@@ -952,7 +952,7 @@ const surpriseBoxData = {
         ]
     },
     'special': {
-        image: 'images/special-moments.jpg',
+        image: '/images/special-moments.jpg',
         text: 'Some moments don\'t need pictures. They live in the heart, quietly replaying when everything else fades. The way you\'d look at me mid-conversation, the way your voice softened when you were half asleep, those little smiles when we caught each other\'s eyes, they\'re all etched in my memory.',
         flashcards: [
             {
@@ -963,7 +963,7 @@ const surpriseBoxData = {
             },
             {
                 text: 'If I still have to capture a special moment in a picture, then it will be this one.',
-                image: 'images/special-moments.jpg'
+                image: '/images/special-moments.jpg'
             }
         ]
     }
