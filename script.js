@@ -884,7 +884,7 @@ window.onclick = function(event) {
     const flashcardsModal = document.getElementById('flashcardsModal');
     
     if (event.target === memoryModal) {
-        closeMemoryStory();
+        // This modal is no longer used
     }
     if (event.target === surpriseModal) {
         closeSurpriseBox();
@@ -897,14 +897,8 @@ window.onclick = function(event) {
 // Keyboard navigation
 document.addEventListener('keydown', function(e) {
     const modal = document.getElementById('memoryModal');
-    if (modal.classList.contains('show')) {
-        if (e.key === 'Escape') {
-            closeMemoryStory();
-        } else if (e.key === 'ArrowLeft') {
-            changeSlide(-1);
-        } else if (e.key === 'ArrowRight') {
-            changeSlide(1);
-        }
+    if (modal && modal.classList.contains('show')) {
+        // This modal is no longer used
     }
     
     // Keyboard navigation for flashcards
