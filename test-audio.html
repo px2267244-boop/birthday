@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Test</title>
+</head>
+<body>
+    <h1>Audio Test Page</h1>
+    <button onclick="testAudio()">Test Audio</button>
+    <div id="result"></div>
+    
+    <audio id="testAudio" controls>
+        <source src="music/our-song.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        function testAudio() {
+            const audio = document.getElementById('testAudio');
+            const result = document.getElementById('result');
+            
+            result.innerHTML = 'Testing...<br>';
+            
+            // Try to load
+            audio.load();
+            
+            // Check if loaded
+            setTimeout(() => {
+                result.innerHTML += 'ReadyState: ' + audio.readyState + '<br>';
+                result.innerHTML += 'Can play MP3: ' + audio.canPlayType('audio/mpeg') + '<br>';
+                result.innerHTML += 'Error: ' + (audio.error ? audio.error.message : 'None') + '<br>';
+                
+                if (audio.readyState >= 2) {
+                    result.innerHTML += '<strong style="color: green;">✓ File loaded successfully!</strong>';
+                } else {
+                    result.innerHTML += '<strong style="color: red;">✗ File could not be loaded. Check file path and format.</strong>';
+                }
+            }, 1000);
+        }
+        
+        testAudio();
+    </script>
+</body>
+</html>
+
+
