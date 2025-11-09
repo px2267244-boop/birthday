@@ -16,15 +16,27 @@ A beautiful, personalized birthday website created with love.
 
 ## How to Add Your Content 📸
 
-### 1. Add Photos (Images)
-1. Place your photos in the `images` folder
-2. Name them: `photo1.jpg`, `photo2.jpg`, `photo3.jpg`, `photo4.jpg`
-3. The website will automatically display them
+### 1. Add Photos to the `images` Folder
+All your photos should be placed in the **`images/`** folder.
+
+#### For the Surprise Boxes:
+Rename your photos to match these exact filenames:
+- `our-first-date.jpg`
+- `adventure-together.jpg`
+- `laughing-together.jpg`
+- `special-moments.jpg`
+
+#### For the Photo Collage:
+Rename your photos to match these filenames (from 1 to 10):
+- `collage-1.jpeg`
+- `collage-2.jpeg`
+- `collage-3.jpeg`
+- ...and so on, up to `collage-10.jpeg`.
 
 ### 2. Add Videos
-1. Place your videos in the `videos` folder
-2. Name the file: `memory1.mp4`
-3. The website will automatically display it
+1. Place your video files in the `videos` folder.
+2. Name them: `1.mp4`, `2.mp4`, and `3.mp4`.
+3. The slideshow will play them in order.
 
 ### 3. Add Music
 1. Place your MP3 file in the `music` folder

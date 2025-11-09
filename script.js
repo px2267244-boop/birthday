@@ -432,7 +432,8 @@ function celebrate() {
                     status.textContent = 'Playing...';
                     console.log('Music started with celebration!');
                 }).catch(error => {
-                    console.log('Could not auto-play music:', error);
+                    console.error('Could not auto-play music:', error);
+                    alert('Music couldn\'t start automatically due to browser policy. Please use the 🎵 button to play it!');
                 });
             }
         }
@@ -808,137 +809,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Memory Story Slideshow Functions
-let currentSlideIndex = 0;
-let currentStory = null;
-const stories = {
-    'first-met': {
-        title: 'When We First Met 🌅',
-        slides: [
-            {
-                title: 'The Beginning',
-                text: 'It all started on that beautiful day. The moment I first saw you, I knew my life was about to change forever.',
-                image: 'images/first-met-1.jpg'
-            },
-            {
-                title: 'That First Smile',
-                text: 'Your smile lit up everything around you. I couldn\'t help but notice how your laughter filled the room with joy.',
-                image: 'images/first-met-2.jpg'
-            },
-            {
-                title: 'Our First Conversation',
-                text: 'We talked for hours, and it felt like we\'d known each other forever. Time seemed to stand still.',
-                image: 'images/first-met-3.jpg'
-            },
-            {
-                title: 'Magic Began',
-                text: 'That day, I knew you were someone special. Little did we know, this was just the beginning of our beautiful story.',
-                image: 'images/first-met-4.jpg'
-            }
-        ]
-    },
-    'adventures': {
-        title: 'Our Adventures Together 🎬',
-        slides: [
-            {
-                title: 'Road Trips',
-                text: 'Every journey we take together becomes an adventure. The open road, the music, and you by my side - what more could I ask for?',
-                image: 'images/adventure-1.jpg'
-            },
-            {
-                title: 'Exploring Together',
-                text: 'From spontaneous road trips to planned getaways, every adventure with you is unforgettable.',
-                image: 'images/adventure-2.jpg'
-            },
-            {
-                title: 'Making Memories',
-                text: 'Every place we visit, every photo we take, becomes a treasured memory in our story together.',
-                image: 'images/adventure-3.jpg'
-            }
-        ]
-    },
-    'conversations': {
-        title: 'Late Night Conversations 🌙',
-        slides: [
-            {
-                title: 'Endless Talks',
-                text: 'Those late night conversations where we share our dreams, fears, and everything in between. These moments are priceless.',
-                image: 'images/conversation-1.jpg'
-            },
-            {
-                title: 'Deep Connections',
-                text: 'Your thoughts, dreams, and laughter - these are the moments I hold closest to my heart.',
-                image: 'images/conversation-2.jpg'
-            },
-            {
-                title: 'Time Stops',
-                text: 'When we talk, hours feel like minutes. That\'s how special our connection is.',
-                image: 'images/conversation-3.jpg'
-            }
-        ]
-    },
-    'music': {
-        title: 'Our Song',
-        slides: [
-            {
-                title: 'Dancing Together',
-                text: 'Remember when we danced in the kitchen? Every song reminds me of those perfect moments.',
-                image: 'images/music-1.jpg'
-            },
-            {
-                title: 'Singing in the Car',
-                text: 'Those car rides with our favorite songs playing - these are moments I\'ll treasure forever.',
-                image: 'images/music-2.jpg'
-            },
-            {
-                title: 'Our Soundtrack',
-                text: 'Music has become the backdrop to our love story. Every song has a memory with you.',
-                image: 'images/music-3.jpg'
-            }
-        ]
-    },
-    'birthdays': {
-        title: 'Birthday Celebrations 🍰',
-        slides: [
-            {
-                title: 'First Birthday Together',
-                text: 'The first birthday we celebrated together was magical. I made a promise to celebrate many more.',
-                image: 'images/birthday-1.jpg'
-            },
-            {
-                title: 'Creating Traditions',
-                text: 'Each year creates new traditions and memories. Today, on your 23rd birthday, we add another chapter.',
-                image: 'images/birthday-2.jpg'
-            },
-            {
-                title: 'More to Come',
-                text: 'I can\'t wait to celebrate countless more birthdays with you, Manya. Here\'s to many more!',
-                image: 'images/birthday-3.jpg'
-            }
-        ]
-    },
-    'future': {
-        title: 'Our Future Together 🚀',
-        slides: [
-            {
-                title: 'Dreams We\'ll Chase',
-                text: 'I\'m excited about all the dreams we\'ll chase together. Our future is bright and full of possibilities.',
-                image: 'images/future-1.jpg'
-            },
-            {
-                title: 'Building Together',
-                text: 'I can\'t wait to build our future together - filled with love, laughter, and endless adventures.',
-                image: 'images/future-2.jpg'
-            },
-            {
-                title: 'Forever and Always',
-                text: 'Here\'s to our future - may it be as beautiful as you are. The best is yet to come, Manya!',
-                image: 'images/future-3.jpg'
-            }
-        ]
-    }
-};
-
 function openMemoryStory(storyId) {
     const modal = document.getElementById('memoryModal');
     const container = document.getElementById('slideshowContainer');
@@ -1061,7 +931,7 @@ document.addEventListener('keydown', function(e) {
 // Surprise Box Data
 const surpriseBoxData = {
     'first-date': {
-        image: 'images/Our-first-date.jpg',
+        image: 'images/our-first-date.jpg',
         text: 'The day we met still feels like a quiet memory that glows differently in my heart. I didn\'t know then that a random plan would turn into something so meaningful.',
         flashcards: [
             'Your smile that day, I still remember it like the first light after a long night. Maybe that\'s where everything truly began, with a moment that felt both ordinary and unforgettable.',
@@ -1070,7 +940,7 @@ const surpriseBoxData = {
         ]
     },
     'adventure': {
-        image: 'images/Adventure Together.jpg',
+        image: 'images/adventure-together.jpg',
         text: 'Every adventure with you felt like time paused, like the world allowed us a few days just to breathe and be us.',
         flashcards: [
             'Bir was where it all began- my birthday, the mountains, the wind, the peace in your presence, and you beside me. You made that day more than just another birthday, you made it mine in a way that felt alive and unforgettable. The laughter, the little moments, the way you looked at me mid-journey, it all felt like a dream I never wanted to end.',
@@ -1079,7 +949,7 @@ const surpriseBoxData = {
         ]
     },
     'laughing': {
-        image: 'images/Laughing Together.jpg',
+        image: 'images/laughing-together.jpg',
         text: 'If there\'s one thing that could silence every worry between us, it was laughter and slight humour. The kind that came out of nowhere- silly, loud, sometimes over the dumbest things like JUST BECAUSE but it always felt real.',
         flashcards: [
             'I still remember how your face changed when you laughed, eyes half closed, that small pause before you caught your breath again. Those moments made everything feel lighter, even when life wasn\'t.',
@@ -1088,7 +958,7 @@ const surpriseBoxData = {
         ]
     },
     'special': {
-        image: 'images/Special Moments.jpg',
+        image: 'images/special-moments.jpg',
         text: 'Some moments don\'t need pictures. They live in the heart, quietly replaying when everything else fades. The way you\'d look at me mid-conversation, the way your voice softened when you were half asleep, those little smiles when we caught each other\'s eyes, they\'re all etched in my memory.',
         flashcards: [
             {
@@ -1099,7 +969,7 @@ const surpriseBoxData = {
             },
             {
                 text: 'If I still have to capture a special moment in a picture, then it will be this one.',
-                image: 'images/Special Moments.jpg'
+                image: 'images/special-moments.jpg'
             }
         ]
     }
