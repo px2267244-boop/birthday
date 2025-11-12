@@ -98,9 +98,6 @@ function createFireworks() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Clear canvas first
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     const fireworkColors = [
         '#ff6b9d', '#ffa5d8', '#ffb3e6', '#ffc2d6', '#ffd1e8',
         '#ffa5c8', '#ff8cc8', '#ffb5d8', '#d98ba3', '#ffccd5',
@@ -109,9 +106,10 @@ function createFireworks() {
 
     // Personal appreciation messages - genuine and heartfelt
     const messages = [
-        "You are enough, even when you feel like you're not doing enough.",
+        "Happiest Birthday Cutes!",
         "Your laughter carries light, it changes the energy around you.",
         "You are allowed to take your time to heal, to choose yourself, and to grow.",
+        "You are enough, even when you feel like you're not doing enough.",
         "I'm grateful for every version of you that trusted me with a little part of her heart.",
         "I see the woman you're becoming, more powerful, wise, and soft.",
         "You have the rare ability to make ordinary moments feel special.",
@@ -127,10 +125,59 @@ function createFireworks() {
         "Thank you for everything my cutest kid, adu will always be proud of you!"
     ];
 
-    const particles = [];
+    const particles = []; // Main firework particles
     const messageElements = [];
     let animationId;
     let fireworkCount = 0;
+
+    // New: for a minimal and feminine twinkling starfield background
+    const starParticles = [];
+    const numStars = 150;
+    const starColors = ['rgba(255, 192, 203, 0.8)', 'rgba(255, 240, 245, 0.7)', 'rgba(255, 182, 193, 0.6)'];
+    for (let i = 0; i < numStars; i++) {
+        starParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 1.5 + 0.5, // Tiny stars
+            color: starColors[Math.floor(Math.random() * starColors.length)],
+            // For twinkling effect
+            opacity: Math.random() * 0.5 + 0.2,
+            opacityDirection: Math.random() > 0.5 ? 0.005 : -0.005, // How fast it twinkles
+            minOpacity: 0.1,
+            maxOpacity: Math.random() * 0.6 + 0.2
+        });
+    }
+
+    // New: for a space theme with planets and comets
+    const planetParticles = [];
+    const numPlanets = 3;
+    const planetColors = ['rgba(173, 216, 230, 0.05)', 'rgba(255, 200, 220, 0.04)', 'rgba(216, 191, 216, 0.06)'];
+    for (let i = 0; i < numPlanets; i++) {
+        planetParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 150 + 100, // Very large, soft planets
+            color: planetColors[i % planetColors.length],
+            vx: (Math.random() - 0.5) * 0.05, // Extremely slow drift
+            vy: (Math.random() - 0.5) * 0.05
+        });
+    }
+
+    const cometParticles = [];
+    function createComet() {
+        if (cometParticles.length < 3) { // Limit number of comets on screen
+            cometParticles.push({
+                x: Math.random() * canvas.width,
+                y: -10,
+                vx: (Math.random() - 0.5) * 6 + 3, // Fast diagonal speed
+                vy: Math.random() * 4 + 4,
+                size: Math.random() * 1.5 + 1,
+                color: 'rgba(255, 255, 224, 0.7)',
+                life: 100 // Lifetime in frames
+            });
+        }
+    }
+    setInterval(createComet, 3000); // Create a new comet every 3 seconds
 
     // Create multiple fireworks - one for each message
     const numFireworks = messages.length; // Show all messages
@@ -138,8 +185,9 @@ function createFireworks() {
     function createFirework(fireworkIndex) {
         // Use center-upper area for better visibility
         const startX = canvas.width / 2 + (Math.random() - 0.5) * (canvas.width * 0.3);
-        const startY = canvas.height * 0.35 + (Math.random() - 0.5) * (canvas.height * 0.2);
-        
+        const startY = canvas.height * 0.3 + (Math.random() - 0.5) * (canvas.height * 0.15); // Slightly higher
+
+
         // Launch rocket
         let rocketY = canvas.height;
         const rocketSpeed = 5; // Increased speed for faster launch
@@ -147,11 +195,8 @@ function createFireworks() {
         
         function launchRocket() {
             if (rocketY > targetY) {
-                // Clear previous rocket trail
-                ctx.fillStyle = 'rgba(20, 20, 30, 0.1)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw realistic rocket trail with particles
+                // The main animate() loop will handle clearing the canvas.
+                // We just draw the rocket here.
                 const trailLength = canvas.height - rocketY;
                 for (let t = 0; t < trailLength; t += 3) {
                     const trailY = canvas.height - t;
@@ -174,92 +219,12 @@ function createFireworks() {
                 rocketY -= rocketSpeed;
                 requestAnimationFrame(launchRocket);
             } else {
-                // Explode
+                // Explode (but only show message, no particles)
                 explode(startX, targetY, fireworkIndex);
             }
         }
 
         function explode(x, y, msgIndex) {
-            // Realistic firework explosion - multiple layers
-            const mainParticleCount = 45;
-            const sparkleCount = 60;
-            const angleStep = (Math.PI * 2) / mainParticleCount;
-            
-            // Main explosion particles
-            for (let i = 0; i < mainParticleCount; i++) {
-                const angle = i * angleStep;
-                const speed = Math.random() * 8 + 4;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-                const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
-                
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: vx,
-                    vy: vy,
-                    color: color,
-                    size: Math.random() * 3.5 + 2,
-                    opacity: 1,
-                    gravity: 0.1,
-                    trail: false,
-                    type: 'main',
-                    twinkle: Math.random() < 0.3
-                });
-            }
-            
-            // Enhanced sparkles - multiple types for realism
-            for (let i = 0; i < sparkleCount; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 7 + 2;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-                const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
-                
-                // Create different types of sparkles
-                const sparkleType = Math.random();
-                
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: vx,
-                    vy: vy,
-                    color: color,
-                    size: sparkleType > 0.7 ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.5,
-                    opacity: 1,
-                    gravity: 0.05 + Math.random() * 0.03,
-                    trail: true,
-                    type: 'sparkle',
-                    twinkle: true,
-                    lifetime: Math.random() * 60 + 60, // frames before fading
-                    age: 0
-                });
-            }
-            
-            // Add golden/white sparkles for extra shimmer
-            for (let i = 0; i < 40; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 5 + 1;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-                
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: vx,
-                    vy: vy,
-                    color: Math.random() > 0.5 ? '#fffacd' : '#fff8dc',
-                    size: Math.random() * 2 + 0.3,
-                    opacity: 1,
-                    gravity: 0.04,
-                    trail: true,
-                    type: 'shimmer',
-                    twinkle: true,
-                    lifetime: Math.random() * 50 + 50,
-                    age: 0
-                });
-            }
-
             // Create message element - ensure it stays on screen
             const messageDiv = document.createElement('div');
             messageDiv.className = 'firework-message';
@@ -305,7 +270,7 @@ function createFireworks() {
             messageDiv.style.wordWrap = 'break-word';
             messageDiv.style.lineHeight = '1.6';
             messageDiv.style.boxShadow = 'none';
-            messageDiv.style.textShadow = '0 2px 10px rgba(255, 165, 216, 0.5), 0 0 20px rgba(255, 165, 216, 0.3)';
+            messageDiv.style.textShadow = 'none';
             document.body.appendChild(messageDiv);
 
             // Animate message appearance
@@ -328,104 +293,91 @@ function createFireworks() {
     }
 
     function animate() {
-        // Clear canvas with fade effect for trail
-        ctx.fillStyle = 'rgba(20, 20, 30, 0.12)';
+        // Clear canvas with a slightly stronger fade to prevent dull imprints
+        ctx.fillStyle = 'rgba(20, 20, 30, 0.2)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Update and draw particles - more realistic
-        for (let i = particles.length - 1; i >= 0; i--) {
-            const p = particles[i];
-            
-            // Update particle age if applicable
-            if (p.age !== undefined) {
-                p.age++;
-            }
-            
-            // Calculate twinkle effect
-            let currentOpacity = p.opacity;
-            if (p.twinkle) {
-                const twinklePhase = (Date.now() % 400) / 400;
-                currentOpacity = p.opacity * (0.7 + Math.sin(twinklePhase * Math.PI * 2) * 0.3);
-            }
-            
-            // Draw extended trail for sparkles
-            if (p.trail && p.opacity > 0.2) {
-                const trailLength = p.type === 'shimmer' ? 4 : 3;
-                for (let t = 0; t < trailLength; t++) {
-                    const trailX = p.x - p.vx * t * 0.3;
-                    const trailY = p.y - p.vy * t * 0.3;
-                    const trailOpacity = currentOpacity * (1 - t / trailLength) * 0.4;
-                    
-                    ctx.beginPath();
-                    ctx.arc(trailX, trailY, p.size * (1 - t / trailLength * 0.5), 0, Math.PI * 2);
-                    ctx.fillStyle = p.color.includes('rgba') 
-                        ? p.color.replace(/[\d.]+\)$/g, `${trailOpacity})`)
-                        : p.color.replace(')', `, ${trailOpacity})`).replace('rgb', 'rgba').replace('#', 'rgba(');
-                    // Handle hex colors
-                    if (p.color.startsWith('#')) {
-                        const r = parseInt(p.color.slice(1, 3), 16);
-                        const g = parseInt(p.color.slice(3, 5), 16);
-                        const b = parseInt(p.color.slice(5, 7), 16);
-                        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${trailOpacity})`;
-                    }
-                    ctx.fill();
-                }
-            }
-            
-            // Draw main particle with glow
-            ctx.save();
-            
-            // Enhanced glow for shimmer particles
-            if (p.type === 'shimmer' || p.type === 'sparkle') {
-                ctx.shadowBlur = p.size * 4;
-                ctx.shadowColor = p.color;
-            } else {
-                ctx.shadowBlur = p.size * 2;
-                ctx.shadowColor = p.color;
-            }
-            
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            
-            // Handle hex colors for fillStyle
-            if (p.color.startsWith('#')) {
-                const r = parseInt(p.color.slice(1, 3), 16);
-                const g = parseInt(p.color.slice(3, 5), 16);
-                const b = parseInt(p.color.slice(5, 7), 16);
-                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentOpacity})`;
-            } else {
-                ctx.fillStyle = p.color.replace(')', `, ${currentOpacity})`).replace('rgb', 'rgba');
-            }
-            ctx.fill();
-            
-            ctx.restore();
+        // Draw the moon
+        ctx.save();
+        ctx.beginPath();
+        // Main moon circle
+        ctx.arc(canvas.width - 100, 100, 50, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 245, 230, 0.8)';
+        ctx.shadowColor = 'rgba(255, 245, 230, 0.5)';
+        ctx.shadowBlur = 30;
+        ctx.fill();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(canvas.width - 90, 95, 50, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
 
-            // Update particle with realistic physics
+        // Update and draw distant planets
+        for (let i = planetParticles.length - 1; i >= 0; i--) {
+            const p = planetParticles[i];
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += p.gravity;
-            
-            // Different fade rates for different particle types
-            if (p.type === 'shimmer') {
-                p.opacity -= 0.015; // Shimmer sparkles fade slowly
-            } else if (p.type === 'sparkle') {
-                p.opacity -= 0.018; // Regular sparkles
-            } else if (p.type === 'cracker') {
-                p.opacity -= 0.025; // Crackers fade quickly like real sky crackers
-            } else {
-                p.opacity -= 0.012; // Main particles fade slowest
-            }
-            
-            p.vx *= 0.98; // Air resistance
-            p.vy *= 0.99;
 
-            // Remove faded particles
-            if (p.opacity <= 0 || p.y > canvas.height + 50 || p.x < -50 || p.x > canvas.width + 50) {
-                particles.splice(i, 1);
+            // Reset if it drifts too far
+            if (p.x > canvas.width + p.size || p.x < -p.size || p.y > canvas.height + p.size || p.y < -p.size) {
+                p.x = Math.random() * canvas.width;
+                p.y = Math.random() * canvas.height;
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Update and draw comets
+        for (let i = cometParticles.length - 1; i >= 0; i--) {
+            const p = cometParticles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life--;
+
+            // Draw trail
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.x - p.vx * 10, p.y - p.vy * 10);
+            ctx.strokeStyle = p.color.replace(/[\d.]+\)$/g, `${(p.life / 100) * 0.3})`);
+            ctx.lineWidth = p.size;
+            ctx.stroke();
+            ctx.restore();
+
+            if (p.life <= 0) {
+                cometParticles.splice(i, 1);
             }
         }
+
+        // Update and draw twinkling starfield background
+        for (let i = starParticles.length - 1; i >= 0; i--) {
+            const p = starParticles[i];
+
+            // Twinkle effect by changing opacity
+            p.opacity += p.opacityDirection;
+            if (p.opacity > p.maxOpacity || p.opacity < p.minOpacity) {
+                p.opacityDirection *= -1;
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            // Use the calculated twinkling opacity
+            ctx.fillStyle = p.color.replace(/[\d.]+\)$/g, `${p.opacity})`);
+            ctx.shadowBlur = p.size * 2; // Add a soft glow
+            ctx.shadowColor = p.color.replace(/[\d.]+\)$/g, `${p.opacity * 0.5})`);
+            ctx.fill();
+            ctx.restore();
+        }
         
-        if (particles.length > 0) {
+        // The animation loop continues as long as there are stars.
+        // The rocket has its own animation frame request.
+        if (starParticles.length > 0 || planetParticles.length > 0 || cometParticles.length > 0) {
             animationId = requestAnimationFrame(animate);
         }
     }
@@ -442,9 +394,6 @@ function createFireworks() {
         }, f * 5000); // 5 seconds between each firework - faster rhythm
     }
     
-    // Create background sparklers/crackers at random intervals
-    createBackgroundSparklers();
-    
     // Stop animation after all fireworks
     setTimeout(() => {
         if (animationId) {
@@ -456,55 +405,6 @@ function createFireworks() {
             document.body.classList.remove('celebration-mode');
         }, 3000);
     }, numFireworks * 5000 + 5000); // Adjusted for faster timing
-    
-    // Background sparklers/crackers function
-    function createBackgroundSparklers() {
-        const canvas = document.getElementById('confetti-canvas');
-        const ctx = canvas.getContext('2d');
-        const totalDuration = numFireworks * 5000 + 5000;
-        const numSparklers = 15; // Limited number of background crackers
-        
-        function createSparkler() {
-            // Random position in upper 60% of screen (sky area)
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height * 0.6;
-            
-            // Small burst of sparkles
-            const sparkCount = Math.floor(Math.random() * 15) + 10;
-            const sparklerColors = ['#fff', '#fffacd', '#ffd700', '#ffec8b', '#ffa500'];
-            
-            for (let i = 0; i < sparkCount; i++) {
-                const angle = (Math.PI * 2 / sparkCount) * i + Math.random() * 0.5;
-                const speed = Math.random() * 3 + 1;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-                const color = sparklerColors[Math.floor(Math.random() * sparklerColors.length)];
-                
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: vx,
-                    vy: vy,
-                    color: color,
-                    size: Math.random() * 1.5 + 0.5,
-                    opacity: 1,
-                    gravity: 0.08,
-                    trail: true,
-                    type: 'cracker',
-                    twinkle: true,
-                    lifetime: 40,
-                    age: 0
-                });
-            }
-        }
-        
-        // Create sparklers at random intervals
-        for (let i = 0; i < numSparklers; i++) {
-            setTimeout(() => {
-                createSparkler();
-            }, Math.random() * totalDuration);
-        }
-    }
 }
 
 // Celebration function
@@ -532,7 +432,8 @@ function celebrate() {
                     status.textContent = 'Playing...';
                     console.log('Music started with celebration!');
                 }).catch(error => {
-                    console.log('Could not auto-play music:', error);
+                    console.error('Could not auto-play music:', error);
+                    alert('Music couldn\'t start automatically due to browser policy. Please use the 🎵 button to play it!');
                 });
             }
         }
@@ -894,219 +795,6 @@ window.addEventListener('load', () => {
     });
 });
 
-// Add smooth scroll behavior
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Memory Story Slideshow Functions
-let currentSlideIndex = 0;
-let currentStory = null;
-const stories = {
-    'first-met': {
-        title: 'When We First Met 🌅',
-        slides: [
-            {
-                title: 'The Beginning',
-                text: 'It all started on that beautiful day. The moment I first saw you, I knew my life was about to change forever.',
-                image: 'images/first-met-1.jpg'
-            },
-            {
-                title: 'That First Smile',
-                text: 'Your smile lit up everything around you. I couldn\'t help but notice how your laughter filled the room with joy.',
-                image: 'images/first-met-2.jpg'
-            },
-            {
-                title: 'Our First Conversation',
-                text: 'We talked for hours, and it felt like we\'d known each other forever. Time seemed to stand still.',
-                image: 'images/first-met-3.jpg'
-            },
-            {
-                title: 'Magic Began',
-                text: 'That day, I knew you were someone special. Little did we know, this was just the beginning of our beautiful story.',
-                image: 'images/first-met-4.jpg'
-            }
-        ]
-    },
-    'adventures': {
-        title: 'Our Adventures Together 🎬',
-        slides: [
-            {
-                title: 'Road Trips',
-                text: 'Every journey we take together becomes an adventure. The open road, the music, and you by my side - what more could I ask for?',
-                image: 'images/adventure-1.jpg'
-            },
-            {
-                title: 'Exploring Together',
-                text: 'From spontaneous road trips to planned getaways, every adventure with you is unforgettable.',
-                image: 'images/adventure-2.jpg'
-            },
-            {
-                title: 'Making Memories',
-                text: 'Every place we visit, every photo we take, becomes a treasured memory in our story together.',
-                image: 'images/adventure-3.jpg'
-            }
-        ]
-    },
-    'conversations': {
-        title: 'Late Night Conversations 🌙',
-        slides: [
-            {
-                title: 'Endless Talks',
-                text: 'Those late night conversations where we share our dreams, fears, and everything in between. These moments are priceless.',
-                image: 'images/conversation-1.jpg'
-            },
-            {
-                title: 'Deep Connections',
-                text: 'Your thoughts, dreams, and laughter - these are the moments I hold closest to my heart.',
-                image: 'images/conversation-2.jpg'
-            },
-            {
-                title: 'Time Stops',
-                text: 'When we talk, hours feel like minutes. That\'s how special our connection is.',
-                image: 'images/conversation-3.jpg'
-            }
-        ]
-    },
-    'music': {
-        title: 'Our Song',
-        slides: [
-            {
-                title: 'Dancing Together',
-                text: 'Remember when we danced in the kitchen? Every song reminds me of those perfect moments.',
-                image: 'images/music-1.jpg'
-            },
-            {
-                title: 'Singing in the Car',
-                text: 'Those car rides with our favorite songs playing - these are moments I\'ll treasure forever.',
-                image: 'images/music-2.jpg'
-            },
-            {
-                title: 'Our Soundtrack',
-                text: 'Music has become the backdrop to our love story. Every song has a memory with you.',
-                image: 'images/music-3.jpg'
-            }
-        ]
-    },
-    'birthdays': {
-        title: 'Birthday Celebrations 🍰',
-        slides: [
-            {
-                title: 'First Birthday Together',
-                text: 'The first birthday we celebrated together was magical. I made a promise to celebrate many more.',
-                image: 'images/birthday-1.jpg'
-            },
-            {
-                title: 'Creating Traditions',
-                text: 'Each year creates new traditions and memories. Today, on your 23rd birthday, we add another chapter.',
-                image: 'images/birthday-2.jpg'
-            },
-            {
-                title: 'More to Come',
-                text: 'I can\'t wait to celebrate countless more birthdays with you, Manya. Here\'s to many more!',
-                image: 'images/birthday-3.jpg'
-            }
-        ]
-    },
-    'future': {
-        title: 'Our Future Together 🚀',
-        slides: [
-            {
-                title: 'Dreams We\'ll Chase',
-                text: 'I\'m excited about all the dreams we\'ll chase together. Our future is bright and full of possibilities.',
-                image: 'images/future-1.jpg'
-            },
-            {
-                title: 'Building Together',
-                text: 'I can\'t wait to build our future together - filled with love, laughter, and endless adventures.',
-                image: 'images/future-2.jpg'
-            },
-            {
-                title: 'Forever and Always',
-                text: 'Here\'s to our future - may it be as beautiful as you are. The best is yet to come, Manya!',
-                image: 'images/future-3.jpg'
-            }
-        ]
-    }
-};
-
-function openMemoryStory(storyId) {
-    const modal = document.getElementById('memoryModal');
-    const container = document.getElementById('slideshowContainer');
-    
-    currentStory = stories[storyId];
-    currentSlideIndex = 0;
-    
-    // Clear previous content
-    container.innerHTML = '';
-    
-    // Create slides
-    currentStory.slides.forEach((slide, index) => {
-        const slideDiv = document.createElement('div');
-        slideDiv.className = 'slide' + (index === 0 ? ' active' : '');
-        
-        let content = `<div class="slide-content">
-            <h2 class="slide-title">${slide.title}</h2>
-            <p class="slide-text">${slide.text}</p>`;
-        
-        // Add image if it exists
-        if (slide.image) {
-            content += `<img src="${slide.image}" class="slide-image" alt="${slide.title}" onerror="this.style.display='none'">`;
-        }
-        
-        content += '</div>';
-        slideDiv.innerHTML = content;
-        container.appendChild(slideDiv);
-    });
-    
-    // Update counter
-    updateSlideCounter();
-    
-    // Show modal
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMemoryStory() {
-    const modal = document.getElementById('memoryModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = 'auto';
-}
-
-function changeSlide(direction) {
-    if (!currentStory) return;
-    
-    const slides = document.querySelectorAll('.slide');
-    slides[currentSlideIndex].classList.remove('active');
-    
-    currentSlideIndex += direction;
-    
-    if (currentSlideIndex < 0) {
-        currentSlideIndex = slides.length - 1;
-    } else if (currentSlideIndex >= slides.length) {
-        currentSlideIndex = 0;
-    }
-    
-    slides[currentSlideIndex].classList.add('active');
-    updateSlideCounter();
-}
-
-function updateSlideCounter() {
-    const counter = document.getElementById('slideCounter');
-    if (counter && currentStory) {
-        counter.textContent = `${currentSlideIndex + 1} / ${currentStory.slides.length}`;
-    }
-}
-
 // Close modals when clicking outside
 window.onclick = function(event) {
     const memoryModal = document.getElementById('memoryModal');
@@ -1114,9 +802,6 @@ window.onclick = function(event) {
     const flashcardsModal = document.getElementById('flashcardsModal');
     
     if (event.target === memoryModal) {
-        closeMemoryStory();
-    }
-    if (event.target === surpriseModal) {
         closeSurpriseBox();
     }
     if (event.target === flashcardsModal) {
@@ -1127,19 +812,7 @@ window.onclick = function(event) {
 // Keyboard navigation
 document.addEventListener('keydown', function(e) {
     const modal = document.getElementById('memoryModal');
-    if (modal.classList.contains('show')) {
-        if (e.key === 'Escape') {
-            closeMemoryStory();
-        } else if (e.key === 'ArrowLeft') {
-            changeSlide(-1);
-        } else if (e.key === 'ArrowRight') {
-            changeSlide(1);
-        }
-    }
-    
-    // Keyboard navigation for flashcards
-    const flashcardsModal = document.getElementById('flashcardsModal');
-    if (flashcardsModal && flashcardsModal.classList.contains('show')) {
+    if (modal && modal.classList.contains('show')) {
         if (e.key === 'Escape') {
             closeFlashcards();
         } else if (e.key === 'ArrowLeft') {
@@ -1161,7 +834,7 @@ document.addEventListener('keydown', function(e) {
 // Surprise Box Data
 const surpriseBoxData = {
     'first-date': {
-        image: 'images/Our-first-date.jpg',
+        image: 'images/our-first-date.jpg',
         text: 'The day we met still feels like a quiet memory that glows differently in my heart. I didn\'t know then that a random plan would turn into something so meaningful.',
         flashcards: [
             'Your smile that day, I still remember it like the first light after a long night. Maybe that\'s where everything truly began, with a moment that felt both ordinary and unforgettable.',
@@ -1170,7 +843,7 @@ const surpriseBoxData = {
         ]
     },
     'adventure': {
-        image: 'images/Adventure Together.jpg',
+        image: 'images/adventure-together.jpg',
         text: 'Every adventure with you felt like time paused, like the world allowed us a few days just to breathe and be us.',
         flashcards: [
             'Bir was where it all began- my birthday, the mountains, the wind, the peace in your presence, and you beside me. You made that day more than just another birthday, you made it mine in a way that felt alive and unforgettable. The laughter, the little moments, the way you looked at me mid-journey, it all felt like a dream I never wanted to end.',
@@ -1179,7 +852,7 @@ const surpriseBoxData = {
         ]
     },
     'laughing': {
-        image: 'images/Laughing Together.jpg',
+        image: 'images/laughing-together.jpg',
         text: 'If there\'s one thing that could silence every worry between us, it was laughter and slight humour. The kind that came out of nowhere- silly, loud, sometimes over the dumbest things like JUST BECAUSE but it always felt real.',
         flashcards: [
             'I still remember how your face changed when you laughed, eyes half closed, that small pause before you caught your breath again. Those moments made everything feel lighter, even when life wasn\'t.',
@@ -1188,7 +861,7 @@ const surpriseBoxData = {
         ]
     },
     'special': {
-        image: 'images/Special Moments.jpg',
+        image: 'images/special-moments.jpg',
         text: 'Some moments don\'t need pictures. They live in the heart, quietly replaying when everything else fades. The way you\'d look at me mid-conversation, the way your voice softened when you were half asleep, those little smiles when we caught each other\'s eyes, they\'re all etched in my memory.',
         flashcards: [
             {
@@ -1199,7 +872,7 @@ const surpriseBoxData = {
             },
             {
                 text: 'If I still have to capture a special moment in a picture, then it will be this one.',
-                image: 'images/Special Moments.jpg'
+                image: 'images/special-moments.jpg'
             }
         ]
     }
@@ -1394,3 +1067,66 @@ function updateFlashcardCounter() {
     }
 }
 
+// Final Message Functionality
+function showFinalMessage() {
+    const modal = document.getElementById('finalMessageModal');
+    const finalAudio = document.getElementById('finalMessageMusic');
+    const finalMessageContent = document.querySelector('.final-message-content');
+    const messageText = document.getElementById('finalMessageText');
+    
+    const message = "As my final act of love, I would shed the skin of who I've been, and bloom into a stranger made only of sacrifice. Not a name, not a face, just feeling. So deeply unrecognizable, even to your softest memory. I would vanish into a shape that holds you without arms, sings for you without a voice, loves you without needing to be loved back. And if we were to meet again, in some other silence, you might not know me, but you would feel the echo of someone who once chose to disappear just to keep you whole.";
+    
+    messageText.innerHTML = message.split('. ').join('.<br><br>');
+    
+    // Play the dedicated song
+    if (finalAudio) {
+        finalAudio.volume = 1.0; // Set initial volume to 100%
+        finalAudio.currentTime = 0;
+        finalAudio.play().catch(e => console.error("Final message audio could not play:", e));
+    }
+    
+    modal.classList.add('show');
+    finalMessageContent.classList.add('scrolling');
+    document.body.style.overflow = 'hidden';
+    
+    // Hide after a delay
+    setTimeout(() => {
+        hideFinalMessage();
+    }, 42000); // Message shown for 42 seconds
+
+    // Allow clicking anywhere to close
+    modal.onclick = () => hideFinalMessage();
+}
+
+function hideFinalMessage() {
+    const modal = document.getElementById('finalMessageModal');
+    const finalAudio = document.getElementById('finalMessageMusic');
+    const finalMessageContent = document.querySelector('.final-message-content');
+    
+    if (modal.classList.contains('show')) {
+        modal.classList.add('hiding');
+        
+        // Fade out the audio with the visual fade
+        if (finalAudio && !finalAudio.paused) {
+            let currentVolume = finalAudio.volume;
+            const fadeOutInterval = setInterval(() => {
+                currentVolume -= 0.05;
+                if (currentVolume > 0) {
+                    finalAudio.volume = currentVolume;
+                } else {
+                    clearInterval(fadeOutInterval);
+                    finalAudio.pause();
+                    finalAudio.currentTime = 0;
+                }
+            }, 200); // Fade out over 4 seconds (200ms * 20 steps)
+        }
+        
+        // Wait for the fade-out animation to complete before hiding the element
+        setTimeout(() => {
+            modal.classList.remove('show');
+            modal.classList.remove('hiding');
+            finalMessageContent.classList.remove('scrolling');
+            document.body.style.overflow = 'auto';
+        }, 4000); // This duration should match the CSS animation
+    }
+}

@@ -111,15 +111,12 @@
                     <span class="play-icon">▶</span>
                 </button>
             </div>
-            <video id="videoPlayer" class="memory-video" style="display: none;" volume="0.9">
-                <source src="videos/1.mp4" type="video/mp4">
-            </video>
         </section>
 
         <!-- Fullscreen Video Slideshow Container -->
         <div id="fullscreenVideoContainer" class="video-fullscreen-container">
             <div class="video-wrapper">
-                <video id="fullscreenVideoPlayer" autoplay volume="0.9"></video>
+                <video id="fullscreenVideoPlayer" autoplay volume="1.0"></video>
             </div>
         </div>
 
@@ -150,82 +147,67 @@
             <p class="section-note">Every picture tells our story</p>
             <div class="photo-collage-grid">
                 <div class="collage-item collage-tall">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.28 PM (1).jpeg" alt="Memory 1" loading="lazy">
+                    <img src="images/collage-1.jpeg" alt="Memory 1" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Beautiful Memory</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.28 PM.jpeg" alt="Memory 2" loading="lazy">
+                    <img src="images/collage-2.jpeg" alt="Memory 2" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Forever Moments</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.29 PM (1).jpeg" alt="Memory 3" loading="lazy">
+                    <img src="images/collage-3.jpeg" alt="Memory 3" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Together Always</span>
                     </div>
                 </div>
                 <div class="collage-item collage-wide">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.29 PM (2).jpeg" alt="Memory 4" loading="lazy">
+                    <img src="images/collage-4.jpeg" alt="Memory 4" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Special Times</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.29 PM.jpeg" alt="Memory 5" loading="lazy">
+                    <img src="images/collage-5.jpeg" alt="Memory 5" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Precious Days</span>
                     </div>
                 </div>
                 <div class="collage-item collage-tall">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.30 PM (1).jpeg" alt="Memory 6" loading="lazy">
+                    <img src="images/collage-6.jpeg" alt="Memory 6" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Unforgettable</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.30 PM (2).jpeg" alt="Memory 7" loading="lazy">
+                    <img src="images/collage-7.jpeg" alt="Memory 7" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Happiness</span>
                     </div>
                 </div>
                 <div class="collage-item collage-wide">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.30 PM (3).jpeg" alt="Memory 8" loading="lazy">
+                    <img src="images/collage-8.jpeg" alt="Memory 8" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Amazing Journey</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.30 PM.jpeg" alt="Memory 9" loading="lazy">
+                    <img src="images/collage-9.jpeg" alt="Memory 9" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Love & Laughter</span>
                     </div>
                 </div>
                 <div class="collage-item">
-                    <img src="photos/WhatsApp Image 2025-11-01 at 10.56.31 PM (1).jpeg" alt="Memory 10" loading="lazy">
+                    <img src="images/collage-10.jpeg" alt="Memory 10" loading="lazy">
                     <div class="collage-overlay">
                         <span class="collage-caption">Our Story</span>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Memory Story Modal/Slideshow -->
-        <div id="memoryModal" class="memory-modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeMemoryStory()">&times;</span>
-                <div class="slideshow-container" id="slideshowContainer">
-                    <!-- Slides will be dynamically generated -->
-                </div>
-                <div class="slideshow-navigation">
-                    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">❮ Prev</button>
-                    <span class="slide-counter" id="slideCounter">1 / 1</span>
-                    <button class="nav-btn next-btn" onclick="changeSlide(1)">Next ❯</button>
-                </div>
-            </div>
-        </div>
 
         <!-- Countdown to next year -->
         <section class="countdown-section" id="countdown-section">
@@ -280,6 +262,25 @@
         </section>
     </div>
 
+    <!-- Letting Go Section -->
+    <section class="letting-go-section" id="letting-go-section">
+        <div class="dandelion-container" onclick="showFinalMessage()">
+            <div class="dandelion-seed"></div>
+            <p class="dandelion-prompt">A Final Word</p>
+        </div>
+    </section>
+
+    <!-- Final Message Modal -->
+    <div id="finalMessageModal" class="final-message-modal">
+        <div class="final-message-content">
+            <p id="finalMessageText"></p>
+        </div>
+    </div>
+
+    <!-- Audio for the final message -->
+    <audio id="finalMessageMusic" preload="auto" volume="1.0">
+        <source src="music/photograph.mp3" type="audio/mpeg">
+    </audio>
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
