@@ -16,6 +16,7 @@ A beautiful, personalized birthday website created with love.
 
 ## How to Add Your Content 📸
 
+<<<<<<< HEAD
 It's okay if you don't have the files right now! The website will still work without them. When you're ready, here is the list of files the website looks for.
 
 ### 1. Photos (`images/` folder)
@@ -52,6 +53,34 @@ Place your video files in the `videos/` folder and name them sequentially. The s
 The website looks for two songs in the `music/` folder:
 *   `our-song.mp3` (for the main background music)
 *   `photograph.mp3` (for the final message section)
+=======
+### 1. Add Photos to the `images` Folder
+All your photos should be placed in the **`images/`** folder.
+
+#### For the Surprise Boxes:
+Rename your photos to match these exact filenames:
+- `our-first-date.jpg`
+- `adventure-together.jpg`
+- `laughing-together.jpg`
+- `special-moments.jpg`
+
+#### For the Photo Collage:
+Rename your photos to match these filenames (from 1 to 10):
+- `collage-1.jpeg`
+- `collage-2.jpeg`
+- `collage-3.jpeg`
+- ...and so on, up to `collage-10.jpeg`.
+
+### 2. Add Videos
+1. Place your video files in the `videos` folder.
+2. Name them: `1.mp4`, `2.mp4`, and `3.mp4`.
+3. The slideshow will play them in order.
+
+### 3. Add Music
+1. Place your MP3 file in the `music` folder
+2. Name it: `our-song.mp3`
+3. Click the music button (🎵) in the top-right corner to play
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 
 ## File Structure
 
@@ -61,6 +90,7 @@ birthday-website/
 ├── styles.css          # All styling
 ├── script.js           # JavaScript functionality
 ├── images/             # Add your photos here
+<<<<<<< HEAD
 │   ├── our-first-date.jpg
 │   └── collage-1.jpeg
 ├── videos/             # Add your videos here
@@ -68,12 +98,23 @@ birthday-website/
 └── music/              # Add your music here
     ├── our-song.mp3
     └── photograph.mp3
+=======
+│   ├── photo1.jpg
+│   ├── photo2.jpg
+│   ├── photo3.jpg
+│   └── photo4.jpg
+├── videos/             # Add your videos here
+│   └── memory1.mp4
+└── music/              # Add your music here
+    └── our-song.mp3
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 ```
 
 ## Running the Website 🚀
 
 Simply **double-click** `index.html` to open it in your browser!
 
+<<<<<<< HEAD
 ## How to Test Your Website Locally (The Right Way)
 
 Double-clicking `index.html` can sometimes cause issues with loading media files due to browser security. To test your website exactly how it will appear online, you should run a local web server.
@@ -149,6 +190,11 @@ Vercel's servers are case-sensitive, but your computer might not be. Double-chec
 5.  Click **"Deploy"**.
 
 Your website will be live in a few moments! If you make changes later, just push them to GitHub, and Vercel will automatically redeploy the new version.
+=======
+Or you can open it by:
+1. Right-click on `index.html`
+2. Select "Open with" → Choose your browser
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 
 ## Customization Instructions 🎨
 
@@ -157,10 +203,17 @@ Your website will be live in a few moments! If you make changes later, just push
 2. Find the "message-section" (around line 73)
 3. Edit the text to personalize it further
 
+<<<<<<< HEAD
 ### Update Surprise Box & Flashcard Memories
 1. Open `script.js`
 2. Find the `surpriseBoxData` object (around line 1200).
 3. Update the `text` and `flashcards` content for each memory.
+=======
+### Update Memory Cards
+1. Open `index.html`
+2. Find each memory card
+3. Update the titles, dates, and details with your real memories
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 
 ### Change Birthday Date
 1. Open `script.js`
@@ -173,13 +226,6 @@ Your website will be live in a few moments! If you make changes later, just push
 3. Change gradients to your preferred colors
 
 ## Tips 💡
-
-- **Website Not Updating?** After deploying, you may need to do a "hard refresh" in your browser to see the changes. Press **Ctrl+Shift+R** (on Windows/Linux) or **Cmd+Shift+R** (on Mac).
-- Use JPG or PNG for photos
-- Use MP4 for videos (H.264 encoding is best for browsers)
-- Use MP3 for audio files
-- Keep file sizes reasonable for faster loading
-- The website works without photos/videos (they just won't show)
 
 ## Browser Support 🌐
 

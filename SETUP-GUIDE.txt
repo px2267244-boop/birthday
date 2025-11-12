@@ -1,0 +1,54 @@
+HOW TO CUSTOMIZE THE WEBSITE FOR MANYA
+========================================
+
+The website is now personalized for Manya's 23rd birthday!
+
+TO ADD YOUR CONTENT:
+-------------------
+
+1. ADD PHOTOS:
+   - Open the "images" folder
+   - Copy your photos there
+   - Rename them: photo1.jpg, photo2.jpg, photo3.jpg, photo4.jpg
+   - Supported formats: JPG, PNG
+
+2. ADD VIDEOS:
+   - Open the "videos" folder  
+   - Copy your video there
+   - Rename it: memory1.mp4
+   - Supported format: MP4
+
+3. ADD MUSIC:
+   - Open the "music" folder
+   - Copy your song there
+   - Rename it: our-song.mp3
+   - Click the 🎵 button in top-right to play
+
+TO VIEW THE WEBSITE:
+-------------------
+Simply double-click "index.html" to open in your browser.
+
+CURRENT FEATURES:
+----------------
+✓ Personalized for Manya (name and age 23)
+✓ Beautiful photo gallery ready for your photos
+✓ Video section for video memories
+✓ Music player for background music
+✓ Detailed memory cards with your personal story
+✓ Countdown to next birthday
+✓ Smooth transitions and animations
+✓ Interactive confetti celebration button
+✓ Responsive design for mobile and desktop
+
+WHERE TO CUSTOMIZE:
+------------------
+- Edit index.html: Change messages, memory details
+- Edit styles.css: Change colors and styling
+- Edit script.js: Change countdown date
+
+TIP: You don't need to add photos/videos/music right away - 
+     the website works perfectly without them!
+
+Enjoy! 🎉
+
+

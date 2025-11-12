@@ -1778,6 +1778,136 @@ section:not(.hero) {
     font-style: italic;
 }
 
+<<<<<<< HEAD
+=======
+/* Memory Modal/Slideshow */
+.memory-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(253, 242, 248, 0.92);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s;
+}
+
+.memory-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 231, 243, 0.98) 100%);
+    backdrop-filter: blur(30px);
+    padding: 40px;
+    border-radius: 30px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    box-shadow: 
+        0 20px 60px rgba(236, 72, 153, 0.2),
+        0 0 40px rgba(249, 168, 212, 0.3);
+    overflow: hidden;
+    border: 3px solid rgba(249, 168, 212, 0.5);
+    animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--soft-pink);
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(255, 140, 200, 0.5));
+}
+
+.modal-close:hover {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 0.8;
+}
+
+.slideshow-container {
+    position: relative;
+    min-height: 500px;
+    margin-bottom: 20px;
+}
+
+.slide {
+    display: none;
+    animation: slideIn 0.5s;
+    text-align: center;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-content {
+    padding: 30px;
+    color: var(--dark);
+}
+
+.slide-image {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #ffa5d8 0%, #ff8cc8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Keep for gradient text */
+    letter-spacing: 0.5px;
+}
+
+.slide-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 .slideshow-navigation {
     display: flex;
     justify-content: space-between;
@@ -2419,15 +2549,22 @@ section::before {
     background-color: rgba(15, 15, 30, 0.97);
     backdrop-filter: blur(10px);
     animation: fadeIn 1s;
+<<<<<<< HEAD
     text-align: center;
     justify-content: center; /* Center the content horizontally */
     overflow: hidden; /* Hide the overflowing text */
+=======
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 }
 
 .final-message-modal.show {
     display: flex;
 }
 
+<<<<<<< HEAD
 .final-message-modal::before,
 .final-message-modal::after {
     content: '';
@@ -2448,14 +2585,19 @@ section::before {
     background: linear-gradient(to top, rgba(15, 15, 30, 1) 0%, rgba(15, 15, 30, 0) 100%);
 }
 
+=======
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 .final-message-modal.hiding {
     animation: fadeOutMessage 4s forwards;
     pointer-events: none;
 }
 
 .final-message-content {
+<<<<<<< HEAD
     position: absolute;
     width: 100%;
+=======
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
     max-width: 700px;
     padding: 40px;
     color: #e8c5d8;
@@ -2463,6 +2605,7 @@ section::before {
     font-size: 1.25rem;
     line-height: 2;
     font-weight: 500;
+<<<<<<< HEAD
     /* The animation will be added via JS */
 }
 
@@ -2477,6 +2620,10 @@ section::before {
     to {
         transform: translateY(-100%);
     }
+=======
+    opacity: 0;
+    animation: fadeInText 2.5s ease-in-out forwards;
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 }
 
 @keyframes fadeInText {
@@ -2485,7 +2632,11 @@ section::before {
 }
 
 @keyframes fadeOutMessage {
+<<<<<<< HEAD
     from { opacity: 1; backdrop-filter: blur(10px); background-color: rgba(15, 15, 30, 0.97); }
+=======
+    from { opacity: 1; backdrop-filter: blur(10px); background-color: rgba(15, 15, 30, 0.98); }
+>>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
     to { opacity: 0; backdrop-filter: blur(0px); background-color: rgba(15, 15, 30, 0); }
 }
 
