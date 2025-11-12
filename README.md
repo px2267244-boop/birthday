@@ -16,44 +16,7 @@ A beautiful, personalized birthday website created with love.
 
 ## How to Add Your Content 📸
 
-<<<<<<< HEAD
 It's okay if you don't have the files right now! The website will still work without them. When you're ready, here is the list of files the website looks for.
-
-### 1. Photos (`images/` folder)
-
-Place your photos in the `images/` folder. The website uses them in two places:
-
-**For the Surprise Boxes & Memory Flashcards:**
-*   `our-first-date.jpg`
-*   `adventure-together.jpg`
-*   `laughing-together.jpg`
-*   `special-moments.jpg`
-
-**For the Photo Collage:**
-*   `collage-1.jpeg`
-*   `collage-2.jpeg`
-*   `collage-3.jpeg`
-*   `collage-4.jpeg`
-*   `collage-5.jpeg`
-*   `collage-6.jpeg`
-*   `collage-7.jpeg`
-*   `collage-8.jpeg`
-*   `collage-9.jpeg`
-*   `collage-10.jpeg`
-
-### 2. Videos (`videos/` folder)
-
-Place your video files in the `videos/` folder and name them sequentially. The slideshow will play them in this order:
-*   `1.mp4`
-*   `2.mp4`
-*   `3.mp4`
-
-### 3. Music (`music/` folder)
-
-The website looks for two songs in the `music/` folder:
-*   `our-song.mp3` (for the main background music)
-*   `photograph.mp3` (for the final message section)
-=======
 ### 1. Add Photos to the `images` Folder
 All your photos should be placed in the **`images/`** folder.
 
@@ -80,7 +43,6 @@ Rename your photos to match these filenames (from 1 to 10):
 1. Place your MP3 file in the `music` folder
 2. Name it: `our-song.mp3`
 3. Click the music button (🎵) in the top-right corner to play
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 
 ## File Structure
 

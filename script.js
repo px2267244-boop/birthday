@@ -795,91 +795,6 @@ window.addEventListener('load', () => {
     });
 });
 
-<<<<<<< HEAD
-=======
-// Add smooth scroll behavior
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-function openMemoryStory(storyId) {
-    const modal = document.getElementById('memoryModal');
-    const container = document.getElementById('slideshowContainer');
-    
-    currentStory = stories[storyId];
-    currentSlideIndex = 0;
-    
-    // Clear previous content
-    container.innerHTML = '';
-    
-    // Create slides
-    currentStory.slides.forEach((slide, index) => {
-        const slideDiv = document.createElement('div');
-        slideDiv.className = 'slide' + (index === 0 ? ' active' : '');
-        
-        let content = `<div class="slide-content">
-            <h2 class="slide-title">${slide.title}</h2>
-            <p class="slide-text">${slide.text}</p>`;
-        
-        // Add image if it exists
-        if (slide.image) {
-            content += `<img src="${slide.image}" class="slide-image" alt="${slide.title}" onerror="this.style.display='none'">`;
-        }
-        
-        content += '</div>';
-        slideDiv.innerHTML = content;
-        container.appendChild(slideDiv);
-    });
-    
-    // Update counter
-    updateSlideCounter();
-    
-    // Show modal
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMemoryStory() {
-    const modal = document.getElementById('memoryModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = 'auto';
-}
-
-function changeSlide(direction) {
-    if (!currentStory) return;
-    
-    const slides = document.querySelectorAll('.slide');
-    slides[currentSlideIndex].classList.remove('active');
-    
-    currentSlideIndex += direction;
-    
-    if (currentSlideIndex < 0) {
-        currentSlideIndex = slides.length - 1;
-    } else if (currentSlideIndex >= slides.length) {
-        currentSlideIndex = 0;
-    }
-    
-    slides[currentSlideIndex].classList.add('active');
-    updateSlideCounter();
-}
-
-function updateSlideCounter() {
-    const counter = document.getElementById('slideCounter');
-    if (counter && currentStory) {
-        counter.textContent = `${currentSlideIndex + 1} / ${currentStory.slides.length}`;
-    }
-}
-
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 // Close modals when clicking outside
 window.onclick = function(event) {
     const memoryModal = document.getElementById('memoryModal');
@@ -887,12 +802,8 @@ window.onclick = function(event) {
     const flashcardsModal = document.getElementById('flashcardsModal');
     
     if (event.target === memoryModal) {
-<<<<<<< HEAD
-=======
         // This modal is no longer used
-    }
-    if (event.target === surpriseModal) {
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
+    } else if (event.target === surpriseModal) {
         closeSurpriseBox();
     }
     if (event.target === flashcardsModal) {
@@ -904,15 +815,8 @@ window.onclick = function(event) {
 document.addEventListener('keydown', function(e) {
     const modal = document.getElementById('memoryModal');
     if (modal && modal.classList.contains('show')) {
-<<<<<<< HEAD
-=======
         // This modal is no longer used
-    }
-    
-    // Keyboard navigation for flashcards
-    const flashcardsModal = document.getElementById('flashcardsModal');
-    if (flashcardsModal && flashcardsModal.classList.contains('show')) {
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
+    } else if (flashcardsModal && flashcardsModal.classList.contains('show')) {
         if (e.key === 'Escape') {
             closeFlashcards();
         } else if (e.key === 'ArrowLeft') {
@@ -1171,10 +1075,7 @@ function updateFlashcardCounter() {
 function showFinalMessage() {
     const modal = document.getElementById('finalMessageModal');
     const finalAudio = document.getElementById('finalMessageMusic');
-<<<<<<< HEAD
     const finalMessageContent = document.querySelector('.final-message-content');
-=======
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
     const messageText = document.getElementById('finalMessageText');
     
     const message = "As my final act of love, I would shed the skin of who I've been, and bloom into a stranger made only of sacrifice. Not a name, not a face, just feeling. So deeply unrecognizable, even to your softest memory. I would vanish into a shape that holds you without arms, sings for you without a voice, loves you without needing to be loved back. And if we were to meet again, in some other silence, you might not know me, but you would feel the echo of someone who once chose to disappear just to keep you whole.";
@@ -1189,20 +1090,13 @@ function showFinalMessage() {
     }
     
     modal.classList.add('show');
-<<<<<<< HEAD
     finalMessageContent.classList.add('scrolling');
-=======
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
     document.body.style.overflow = 'hidden';
     
     // Hide after a delay
     setTimeout(() => {
         hideFinalMessage();
-<<<<<<< HEAD
     }, 42000); // Message shown for 42 seconds
-=======
-    }, 32000); // Message shown for 32 seconds
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
 
     // Allow clicking anywhere to close
     modal.onclick = () => hideFinalMessage();
@@ -1211,10 +1105,7 @@ function showFinalMessage() {
 function hideFinalMessage() {
     const modal = document.getElementById('finalMessageModal');
     const finalAudio = document.getElementById('finalMessageMusic');
-<<<<<<< HEAD
     const finalMessageContent = document.querySelector('.final-message-content');
-=======
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
     
     if (modal.classList.contains('show')) {
         modal.classList.add('hiding');
@@ -1238,10 +1129,7 @@ function hideFinalMessage() {
         setTimeout(() => {
             modal.classList.remove('show');
             modal.classList.remove('hiding');
-<<<<<<< HEAD
             finalMessageContent.classList.remove('scrolling');
-=======
->>>>>>> 0a7a9c169cc6816c10ec324c6a11d8b7e061338e
             document.body.style.overflow = 'auto';
         }, 4000); // This duration should match the CSS animation
     }
