@@ -6,49 +6,48 @@ function toggleMusic() {
     const audio = document.getElementById('backgroundMusic');
     const button = document.getElementById('musicButton');
     const status = document.getElementById('musicStatus');
-    
+
     if (!audio) {
         console.error('Audio element not found');
         status.textContent = 'Audio element missing';
         return;
     }
-    
-    // Set volume to maximum for better audibility
-    audio.volume = 1.0;
-    
-    // Check if audio is loaded
-    if (audio.readyState === 0) {
-        console.log('Audio file not loaded yet. Loading now...');
-        status.textContent = 'Loading...';
-        audio.load();
-    }
-    
+
     const musicIcon = button.querySelector('.music-icon');
-    
+    audio.volume = 1.0;
+
+    // If the audio isn't loaded yet, wait for a moment and retry
+    if (audio.readyState === 0) {
+        console.log('Audio not loaded yet. Waiting a bit...');
+        status.textContent = 'Loading...';
+        setTimeout(() => toggleMusic(), 500);
+        return;
+    }
+
     if (musicPlaying) {
         audio.pause();
         musicIcon.classList.remove('playing');
         musicPlaying = false;
         status.textContent = 'Paused';
     } else {
-        // Ensure volume is set before playing
-        audio.volume = 1.0;
-        const playPromise = audio.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                musicIcon.classList.add('playing');
-                musicPlaying = true;
-                audioLoaded = true;
-                status.textContent = 'Playing...';
-                console.log('Music playing successfully');
-            }).catch(error => {
-                console.error('Error playing audio:', error);
-                musicIcon.classList.remove('playing');
-                status.textContent = 'Error: ' + error.message;
-                alert('Cannot play music.\n\nCommon issues:\n1. File permissions (file:// URL)\n2. Browser autoplay policy\n3. Audio format not supported\n\nTry: Open via file explorer → right-click index.html → Open with Chrome');
-            });
-        }
+        // Try to play after a short delay to avoid Chrome AbortError
+        setTimeout(() => {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.classList.add('playing');
+                    musicPlaying = true;
+                    audioLoaded = true;
+                    status.textContent = 'Playing...';
+                    console.log('Music started successfully');
+                }).catch(error => {
+                    console.error('Error playing audio:', error);
+                    musicIcon.classList.remove('playing');
+                    status.textContent = 'Tap to play (blocked by browser)';
+                    alert('Browser blocked autoplay — please tap the 🎵 button once to start the music.');
+                });
+            }
+        }, 300);
     }
 }
 
@@ -780,6 +779,7 @@ window.addEventListener('load', () => {
         audio.volume = 1.0;
         audio.load();
         console.log('Audio element ready');
+        audio.load();
     }
     
     // Update countdown every second
