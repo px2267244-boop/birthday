@@ -1,5 +1,4 @@
 // Music player functionality
-let musicPlaying = false;
 let audioLoaded = false;
 
 function toggleMusic() {
@@ -13,41 +12,28 @@ function toggleMusic() {
         return;
     }
 
-    const musicIcon = button.querySelector('.music-icon');
-    audio.volume = 1.0;
-
-    // If the audio isn't loaded yet, wait for a moment and retry
-    if (audio.readyState === 0) {
-        console.log('Audio not loaded yet. Waiting a bit...');
-        status.textContent = 'Loading...';
-        setTimeout(() => toggleMusic(), 500);
-        return;
-    }
-
-    if (musicPlaying) {
+    if (!audio.paused) {
         audio.pause();
-        musicIcon.classList.remove('playing');
-        musicPlaying = false;
+        button.querySelector('.music-icon').classList.remove('playing');
         status.textContent = 'Paused';
     } else {
-        // Try to play after a short delay to avoid Chrome AbortError
-        setTimeout(() => {
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    musicIcon.classList.add('playing');
-                    musicPlaying = true;
-                    audioLoaded = true;
-                    status.textContent = 'Playing...';
-                    console.log('Music started successfully');
-                }).catch(error => {
-                    console.error('Error playing audio:', error);
-                    musicIcon.classList.remove('playing');
-                    status.textContent = 'Tap to play (blocked by browser)';
-                    alert('Browser blocked autoplay — please tap the 🎵 button once to start the music.');
-                });
-            }
-        }, 300);
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                button.querySelector('.music-icon').classList.add('playing');
+                audioLoaded = true;
+                status.textContent = 'Playing...';
+                console.log('Music started successfully');
+            }).catch(error => {
+                console.error('Error playing audio:', error);
+                button.querySelector('.music-icon').classList.remove('playing');
+                status.textContent = 'Tap to play';
+                // Only alert if it's the first interaction.
+                if (!audioLoaded) {
+                    alert('Browser blocked autoplay. Please tap the 🎵 button again to start the music.');
+                }
+            });
+        }
     }
 }
 
@@ -412,7 +398,7 @@ function celebrate() {
     document.body.classList.add('celebration-mode');
     
     // Start the music automatically if not already playing
-    if (!musicPlaying) {
+    if (document.getElementById('backgroundMusic')?.paused) {
         const audio = document.getElementById('backgroundMusic');
         const button = document.getElementById('musicButton');
         const status = document.getElementById('musicStatus');
@@ -426,7 +412,6 @@ function celebrate() {
                 playPromise.then(() => {
                     const musicIcon = button.querySelector('.music-icon');
                     if (musicIcon) musicIcon.classList.add('playing');
-                    musicPlaying = true;
                     audioLoaded = true;
                     status.textContent = 'Playing...';
                     console.log('Music started with celebration!');
